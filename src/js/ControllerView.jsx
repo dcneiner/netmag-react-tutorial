@@ -13,7 +13,6 @@ var _ = require( "lodash" );
 */
 
 // Custom Components
-var PageHeader = require( "PageHeader" );
 var Entries = require( "Entries" );
 var EntryDetail = require( "EntryDetail" );
 
@@ -51,8 +50,7 @@ var ControllerView = React.createClass({
 		});
 	},
 	selectEntry: function ( id ) {
-		var currentId = this.state.currentEntry;
-		this.setState({ currentEntry: currentId === id ? null : id });
+		
 	},
 	chooseWinner: function () {
 		var entries = this.state.entries;
@@ -72,7 +70,7 @@ var ControllerView = React.createClass({
 
 	// Lifecycle Methods
 	componentWillMount: function () {
-		this.getLatestEntries();
+		
 	},
 
 	// Rendering Helpers
@@ -96,12 +94,13 @@ var ControllerView = React.createClass({
 		var chooseWinnerDisabled = !_.find( this.state.entries, { status: "unchosen" } );
 
 		return <div className="container">
-			<PageHeader title="React Example" subtitle="winner selection engine">
+			<div className="page-header">
+				<h1>React Example <small>winner selection engine</small></h1>
 				<div className="btn-group">
 					<button className="btn btn-primary" onClick={this.getLatestEntries}>Get Latest Entries</button>
 					<button className="btn btn-success" onClick={this.chooseWinner} disabled={chooseWinnerDisabled}>Choose a Winner</button>
 				</div>
-			</PageHeader>
+			</div>
 			<div className="row">
 				<div className="col col-sm-8">{ this.renderEntries() }</div>
 				<div className="col col-sm-4">{ this.renderCurrentEntry() }</div>

@@ -14,11 +14,7 @@ var EntryRow = React.createClass({
 		};
 	},
 	render: function () {
-		var classes = classNames( "list-group-item", {
-			active: this.props.current,
-			disabled: this.props.status === "disqualified",
-			"list-group-item-success": this.props.status === "winner"
-		});
+		var classes = "list-group-item";
 
 		var onClick;
 

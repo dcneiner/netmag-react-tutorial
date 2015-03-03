@@ -12,8 +12,8 @@ var Entries = React.createClass({
 		var entries = this.props.items.map( function ( entry ) {
 			var current = entry.id === this.props.current;
 			var onClick = this.props.onSelected.bind( null, entry.id );
-			
-			return <EntryRow key={entry.id} onClick={onClick} current={current} {...entry} />;
+
+			return <EntryRow key={entry.id} onClick={onClick} {...entry} />;
 		}, this );
 
 		return <div>
