@@ -2,7 +2,7 @@ var fakeData = require( "../../fakeData" );
 
 module.exports = function( host ) {
     return {
-        name: "names",
+        name: "entries",
         actions:  {
             latest: {
                 method: "get",
@@ -10,7 +10,7 @@ module.exports = function( host ) {
                 topic: "send",
                 handle: function( env ) {
                     env.reply({
-                        data: fakeData.getPeople( 3 ),
+                        data: fakeData.getEntries( 3 ),
                         statusCode: 200
                     });
                 }

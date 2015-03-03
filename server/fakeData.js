@@ -2,7 +2,7 @@ var faker = require( "faker" );
 var _ = require( "lodash" );
 
 module.exports = {
-	getPeople: function ( count ) {
+	getEntries: function ( count ) {
 
 		// A simple (aka naive) mechanism to get ascending ID's
 		// that will be unique enough for this example app

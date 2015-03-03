@@ -14,49 +14,49 @@ var _ = require( "lodash" );
 
 // Custom Components
 var PageHeader = require( "PageHeader" );
-var UserRow = require( "UserRow" );
-var UserDetail = require( "UserDetail" );
+var Entries = require( "Entries" );
+var EntryDetail = require( "EntryDetail" );
 
 var ControllerView = React.createClass({
 	getInitialState: function () {
 		return {
 			loading: true,
-			currentUser: null,
-			users: []
+			currentEntry: null,
+			entries: []
 		};
 	},
 
 	// AJAX Requests (In a Flux app, this would live upstream of the stores)
-	getLatestNames: function () {
+	getLatestEntries: function () {
 		$.ajax({
-			url: "/api/names/latest"
-		}).then( function ( newUsers ) {
-			var users = this.state.users.concat( newUsers );
+			url: "/api/entries/latest"
+		}).then( function ( newEntries ) {
+			var entries = this.state.entries.concat( newEntries );
 
 			this.setState({
 				loading: false,
-				users: users
+				entries: entries
 			});
 		}.bind( this ) );
 	},
 
 	// Actions (in a Flux app, these would live in the stores)
-	disqualifyUser: function ( id ) {
-		var users = this.state.users;
-		var user = _.find( users, { id: id } );
-		user.status = "disqualified";
+	disqualifyEntry: function ( id ) {
+		var entries = this.state.entries;
+		var entry = _.find( entries, { id: id } );
+		entry.status = "disqualified";
 		this.setState({
-			currentUser: null,
-			users: users
+			currentEntry: null,
+			entries: entries
 		});
 	},
-	selectUser: function ( id ) {
-		var currentId = this.state.currentUser;
-		this.setState({ currentUser: currentId === id ? null : id });
+	selectEntry: function ( id ) {
+		var currentId = this.state.currentEntry;
+		this.setState({ currentEntry: currentId === id ? null : id });
 	},
 	chooseWinner: function () {
-		var users = this.state.users;
-		var possible = _.filter( this.state.users, { status: "unchosen" } );
+		var entries = this.state.entries;
+		var possible = _.filter( this.state.entries, { status: "unchosen" } );
 		var rand;
 
 		if ( possible.length ) {
@@ -64,51 +64,47 @@ var ControllerView = React.createClass({
 			possible[ rand ].status = "winner";
 
 			this.setState({
-				currentUser: possible[ rand ].id,
-				users: users
+				currentEntry: possible[ rand ].id,
+				entries: entries
 			});
 		}
 	},
 
 	// Lifecycle Methods
 	componentWillMount: function () {
-		this.getLatestNames();
+		this.getLatestEntries();
 	},
 
 	// Rendering Helpers
-	renderUsers: function () {
-		var users = this.state.users.map( function ( user ) {
-			var current = user.id === this.state.currentUser;
-			return <UserRow key={user.id} onSelected={this.selectUser} current={current} {...user} />;
-		}, this );
-
-		return <div>
-			<ul className="list-group">{users}</ul>
-		</div>;
+	renderCurrentEntry: function () {
+		if ( this.state.currentEntry ) {
+			var entry = _.find( this.state.entries, { id: this.state.currentEntry });
+			return <EntryDetail onDisqualify={this.disqualifyEntry} {...entry} />;
+		}
 	},
-	renderCurrentUser: function () {
-		var user = _.find( this.state.users, { id: this.state.currentUser });
-		return <UserDetail onDisqualify={this.disqualifyUser} {...user} />;
+
+	renderEntries: function () {
+		if ( this.state.loading ) {
+			return "Loading...";
+		} else {
+			return <Entries items={this.state.entries} current={this.state.currentEntry} onSelected={this.selectEntry} />;
+		}
 	},
 
 	// Actual render call
 	render: function () {
-		var chooseWinnerDisabled = !_.find( this.state.users, { status: "unchosen" } );
+		var chooseWinnerDisabled = !_.find( this.state.entries, { status: "unchosen" } );
 
 		return <div className="container">
 			<PageHeader title="React Example" subtitle="winner selection engine">
 				<div className="btn-group">
-					<button className="btn btn-success" onClick={this.getLatestNames}>Get Latest Names</button>
-					<button className="btn btn-primary" onClick={this.chooseWinner} disabled={chooseWinnerDisabled}>Choose a Winner</button>
+					<button className="btn btn-primary" onClick={this.getLatestEntries}>Get Latest Entries</button>
+					<button className="btn btn-success" onClick={this.chooseWinner} disabled={chooseWinnerDisabled}>Choose a Winner</button>
 				</div>
 			</PageHeader>
 			<div className="row">
-				<div className="col col-sm-8">
-					{ this.state.loading ? "Loading..." : this.renderUsers() }
-				</div>
-				<div className="col col-sm-4">
-					{ this.state.currentUser ? this.renderCurrentUser() : null }
-				</div>
+				<div className="col col-sm-8">{ this.renderEntries() }</div>
+				<div className="col col-sm-4">{ this.renderCurrentEntry() }</div>
 			</div>
 			<footer>
 				<p>

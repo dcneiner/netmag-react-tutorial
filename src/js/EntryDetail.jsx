@@ -1,6 +1,6 @@
 var React = require( "react" );
 
-var UserDetail = React.createClass({
+var EntryDetail = React.createClass({
 	propTypes: {
 		id: React.PropTypes.number.isRequired,
 		onDisqualify: React.PropTypes.func.isRequired,
@@ -18,4 +18,4 @@ var UserDetail = React.createClass({
 	}
 });
 
-module.exports = UserDetail;
+module.exports = EntryDetail;
