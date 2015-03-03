@@ -1,65 +1,65 @@
 <!doctype HTML>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>Blog Editor</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-	<link href="css/app.css" rel="stylesheet">
-</head>
-<body>
-	<div class="container">
-		<div class="page-header">
-			<h1>Blog Editor <small>React.js Example</small></h1>
-		</div>
-		<form class="form">
+	<head>
+		<meta charset="utf-8">
+		<title>Winner Selection Engine</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="css/app.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<div class="page-header">
+				<h1>
+					React Example <small>winner selection engine</small>
+				</h1>
+
+				<div class="btn-group">
+					<button class="btn btn-success">Get Latest Names</button>
+					<button class="btn btn-primary">Choose a Winner</button>
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="col col-sm-8">
-					<div class="pull-right">
-						<a href="#">Show Advanced Settings</a>
-					</div>
-					<div class="form-group">
-						<label html="article-title">Title</label>
-						<input type="text" class="form-control" id="article-title" placeholder="Once upon a time..." />
-					</div>
-					<div class="form-group">
-						<label html="article-content">Content</label>
-						<textarea class="form-control" id="article-content" rows="10" ></textarea>
+					<div>
+						<ul class="list-group">
+							<li class="list-group-item">Cierra Kohler</li>
+							<li class="list-group-item active list-group-item-success">Rafaela
+							Zboncak</li>
+							<li class="list-group-item">Cassandra Hoeger</li>
+							<li class="list-group-item list-group-item-success">Reece Green</li>
+							<li class="list-group-item">Myah Kihn</li>
+							<li class="list-group-item">Elda Rohan</li>
+							<li class="list-group-item">Miles Barton</li>
+							<li class="list-group-item">Katelyn Jerde</li>
+							<li class="list-group-item list-group-item-success">Adelbert Morissette</li>
+						</ul>
 					</div>
 				</div>
+
 				<div class="col col-sm-4">
-					<div class="form-group">
-						<label html="article-slug">Slug</label>
-						<div class="input-group">
-							<span class="input-group-addon" id="slug-addon">blog/articles/</span>
-							<input type="text" class="form-control" id="article-slug" placeholder="slug"  aria-describedby="slug-addon" />
-						</div>
-					</div>
-					<div class="form-group">
-						<h4>Publish Status</h4>
-						<div class="radio">
-							<label>
-								<input type="radio" name="optionsRadios" value="published" /> Published
-							</label>
-						</div>
-						<div class="radio">
-							<label>
-								<input type="radio" name="optionsRadios" value="draft" checked /> Draft
-							</label>
-						</div>
-						<div class="radio">
-							<label>
-								<input type="radio" name="optionsRadios" value="hidden" /> Hidden
-							</label>
+					<div>
+						<h2>Rafaela Zboncak</h2>
+
+						<p>
+							<a href="mailto:Bartholome_Hills@example.com">Bartholome_Hills@example.com</a>
+						</p>
+
+						<div>
+							<button class="btn btn-warning">Disqualify</button>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="well">
-				<button class="btn btn-default">Cancel</button>
-				<button class="btn btn-primary pull-right">Save Post</button>
-			</div>
-		</form>
-	</div>
-</body>
+			<footer>
+				<p>
+					This is a simple React example project created to 
+					accompany an article in 
+					<a href="http://netmagazine.com">net magazine</a>.<br />
+					<a href="/">View the React version of this comp &rarr;</a>
+				</p>
+			</footer>
+		</div>
+	</body>
 </html>

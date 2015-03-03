@@ -4,7 +4,9 @@
   "description": "A simple getting started with React.js tutorial for net magazine.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "build": "webpack",
+    "server": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +25,7 @@
     "gulp-spawn-mocha": "^2.0.1",
     "gulp-webpack": "^1.2.0",
     "jsx-loader": "^0.12.2",
+    "processhost": "^0.2.1",
     "webpack": "^1.6.0"
   },
   "dependencies": {

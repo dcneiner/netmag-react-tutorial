@@ -3,41 +3,30 @@ var $ = require( "jquery" );
 var _ = require( "lodash" );
 
 /*
-	For the purpose of this application, this is the component
+	For the purpose of this example, this is the component
 	that will maintain state, make AJAX requests, etc. For
-	a production-scale application, I'd highly recommend moving
+	a production-scale applications, I'd highly recommend moving
 	these concerns into the Flux architecture model where the
 	AJAX requests would be handled out of band, and fed as actions
 	into the stores. And then the components would render 
 	based on the contents of the stores
 */
 
+// Custom Components
+var PageHeader = require( "PageHeader" );
 var UserRow = require( "UserRow" );
 var UserDetail = require( "UserDetail" );
-
-function sortUsers( users, sortOrder ) {
-	if ( sortOrder === "asc" ) {
-		users.sort( function ( a, b ) {
-			return a.id - b.id;
-		} );
-	} else {
-		users.sort( function ( a, b ) {
-			return b.id - a.id;
-		} );
-	}
-
-	return users;
-}
 
 var ControllerView = React.createClass({
 	getInitialState: function () {
 		return {
 			loading: true,
 			currentUser: null,
-			users: [],
-			sortOrder: "asc"
+			users: []
 		};
 	},
+
+	// AJAX Requests (In a Flux app, this would live upstream of the stores)
 	getLatestNames: function () {
 		$.ajax({
 			url: "/api/names/latest"
@@ -46,10 +35,12 @@ var ControllerView = React.createClass({
 
 			this.setState({
 				loading: false,
-				users: sortUsers( users, this.state.sortOrder )
+				users: users
 			});
 		}.bind( this ) );
 	},
+
+	// Actions (in a Flux app, these would live in the stores)
 	disqualifyUser: function ( id ) {
 		var users = this.state.users;
 		var user = _.find( users, { id: id } );
@@ -78,45 +69,55 @@ var ControllerView = React.createClass({
 			});
 		}
 	},
+
+	// Lifecycle Methods
 	componentWillMount: function () {
 		this.getLatestNames();
 	},
+
+	// Rendering Helpers
 	renderUsers: function () {
 		var users = this.state.users.map( function ( user ) {
 			var current = user.id === this.state.currentUser;
-			return <UserRow key={user.id} onClick={this.selectUser} current={current} {...user} />;
+			return <UserRow key={user.id} onSelected={this.selectUser} current={current} {...user} />;
 		}, this );
 
 		return <div>
 			<ul className="list-group">{users}</ul>
 		</div>;
 	},
-	renderLoading: function () {
-		return "Loading...";
-	},
 	renderCurrentUser: function () {
 		var user = _.find( this.state.users, { id: this.state.currentUser });
-		user = _.pick( user, "id", "name", "email");
 		return <UserDetail onDisqualify={this.disqualifyUser} {...user} />;
 	},
+
+	// Actual render call
 	render: function () {
 		var chooseWinnerDisabled = !_.find( this.state.users, { status: "unchosen" } );
 
 		return <div className="container">
-			<div className="page-header">
-				<h1>React Example <small>winner selection engine</small></h1>
-				<button className="btn btn-success" onClick={this.getLatestNames}>Get Latest Names</button>
-				{" "}
-				<button className="btn btn-primary" onClick={this.chooseWinner} disabled={chooseWinnerDisabled}>Choose a Winner</button>
-			</div>
+			<PageHeader title="React Example" subtitle="winner selection engine">
+				<div className="btn-group">
+					<button className="btn btn-success" onClick={this.getLatestNames}>Get Latest Names</button>
+					<button className="btn btn-primary" onClick={this.chooseWinner} disabled={chooseWinnerDisabled}>Choose a Winner</button>
+				</div>
+			</PageHeader>
 			<div className="row">
 				<div className="col col-sm-8">
-					{ this.state.loading ? this.renderLoading() : this.renderUsers() }
+					{ this.state.loading ? "Loading..." : this.renderUsers() }
 				</div>
 				<div className="col col-sm-4">
 					{ this.state.currentUser ? this.renderCurrentUser() : null }
 				</div>
 			</div>
+			<footer>
+				<p>
+					This is a simple React example project 
+					created to accompany an article published 
+					in <a href="http://netmagazine.com">net magazine</a>.<br />
+					<a href="comp.html">View the static comp &rarr;</a>
+				</p>
+			</footer>
 		</div>;
 	}
 });
