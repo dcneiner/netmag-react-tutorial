@@ -1,0 +1,65 @@
+<!doctype HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Blog Editor</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="css/app.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<div class="page-header">
+			<h1>Blog Editor <small>React.js Example</small></h1>
+		</div>
+		<form class="form">
+			<div class="row">
+				<div class="col col-sm-8">
+					<div class="pull-right">
+						<a href="#">Show Advanced Settings</a>
+					</div>
+					<div class="form-group">
+						<label html="article-title">Title</label>
+						<input type="text" class="form-control" id="article-title" placeholder="Once upon a time..." />
+					</div>
+					<div class="form-group">
+						<label html="article-content">Content</label>
+						<textarea class="form-control" id="article-content" rows="10" ></textarea>
+					</div>
+				</div>
+				<div class="col col-sm-4">
+					<div class="form-group">
+						<label html="article-slug">Slug</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="slug-addon">blog/articles/</span>
+							<input type="text" class="form-control" id="article-slug" placeholder="slug"  aria-describedby="slug-addon" />
+						</div>
+					</div>
+					<div class="form-group">
+						<h4>Publish Status</h4>
+						<div class="radio">
+							<label>
+								<input type="radio" name="optionsRadios" value="published" /> Published
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="optionsRadios" value="draft" checked /> Draft
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="optionsRadios" value="hidden" /> Hidden
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="well">
+				<button class="btn btn-default">Cancel</button>
+				<button class="btn btn-primary pull-right">Save Post</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
