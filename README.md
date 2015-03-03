@@ -28,6 +28,10 @@ npm start
 
 This will install the dependencies, compile the built JavaScript, and then start a server for you to view the running example at <http://localhost:8080>. Any changes you make to the existing `jsx` files will trigger `webpack` to automatically rebuild. Refresh your browser to see your changes, no need to restart `npm start`.
 
+## React Tools
+
+I'd recommend running the example in Chrome and using the [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) to interact with it.
+
 ## License
 
 MIT <http://dougneiner.mit-license.org/>
