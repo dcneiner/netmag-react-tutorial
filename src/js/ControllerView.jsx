@@ -8,7 +8,7 @@ var _ = require( "lodash" );
 	a production-scale applications, I'd highly recommend moving
 	these concerns into the Flux architecture model where the
 	AJAX requests would be handled out of band, and fed as actions
-	into the stores. And then the components would render 
+	into the stores. And then the components would render
 	based on the contents of the stores
 */
 
@@ -71,7 +71,7 @@ var ControllerView = React.createClass({
 	},
 
 	// Lifecycle Methods
-	componentWillMount: function () {
+	componentDidMount: function () {
 		this.getLatestEntries();
 	},
 
@@ -108,8 +108,8 @@ var ControllerView = React.createClass({
 			</div>
 			<footer>
 				<p>
-					This is a simple React example project 
-					created to accompany an article published 
+					This is a simple React example project
+					created to accompany an article published
 					in <a href="http://netmagazine.com">net magazine</a>.<br />
 					<a href="comp.html">View the static comp &rarr;</a>
 				</p>
